@@ -20,6 +20,7 @@ app.get("/api", (req, res) => {
 //----------------------------------------------------------------ROUTES
 app.use("/api/user", require("./backend/routes/userRoutes"));
 app.use("/api/upload", require("./backend/routes/uploadRoutes"));
+app.use("/api/post", require("./backend/routes/postRoutes"));
 
 //----------------------------------------------------------------MIDDLEWARE - Custom Error Handler
 app.use(errorHandler);

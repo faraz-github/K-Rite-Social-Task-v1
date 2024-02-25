@@ -25,7 +25,7 @@ export function UserProvider({ children }) {
             setUser(response.data);
           }
         } catch (error) {
-          console.log(error);
+          console.log(error); // Debug Log
         }
       };
       getUserProfile();

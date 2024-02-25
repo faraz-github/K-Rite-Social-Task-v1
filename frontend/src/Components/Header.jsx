@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import TerminalIcon from "@mui/icons-material/Terminal";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
 
 import Menu from "./Menu";
 
@@ -22,7 +22,7 @@ export default function ButtonAppBar() {
               size="large"
               onClick={() => window.scrollTo(0, 0)}
             >
-              <TerminalIcon fontSize="inherit" />
+              <Diversity1Icon fontSize="inherit" />
             </IconButton>
             <Typography
               variant="h6"

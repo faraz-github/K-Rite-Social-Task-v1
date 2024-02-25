@@ -10,6 +10,7 @@ import Loader from "./Components/Loader";
 
 // Pages
 import LandingPage from "./Pages/LandingPage";
+import HomePage from "./Pages/HomePage";
 
 // MUI
 import { theme } from "./MUI/theme";
@@ -26,6 +27,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/app" element={<HomePage />} />
           </Routes>
           <Toaster />
           <Loader />
