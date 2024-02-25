@@ -1,11 +1,18 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { Button, IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+
 import Register from "./Register";
 import Login from "./Login";
 
+import { useUser } from "../Contexts/userContext";
+
 export default function BasicMenu() {
+  const location = useLocation();
+  const { user, setUser } = useUser();
+
   const [openRegister, setOpenRegister] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const handleRegisterClose = () => {
@@ -32,9 +39,12 @@ export default function BasicMenu() {
     setOpenLogin(true);
     handleClose();
   };
-
-  // TODO when on landing page render register, login
-  // TODO When logged-in render profile, friends, chats and logout button
+  // =========================================================================================== LogOut
+  const logoutUser = () => {
+    localStorage.removeItem("user");
+    setUser(JSON.parse(localStorage.getItem("user")));
+    handleClose();
+  };
 
   return (
     <div>
@@ -49,27 +59,62 @@ export default function BasicMenu() {
       >
         <MenuIcon fontSize="inherit" />
       </IconButton>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        disableScrollLock
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuItem onClick={openRegisterDialog}>Register</MenuItem>
-        <MenuItem onClick={openLoginDialog}>Login</MenuItem>
-      </Menu>
+      {location.pathname === "/" && !user ? (
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          disableScrollLock
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={openRegisterDialog}>Register</MenuItem>
+          <MenuItem onClick={openLoginDialog}>Login</MenuItem>
+        </Menu>
+      ) : (
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          disableScrollLock
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={() => alert("Profile")}>Profile</MenuItem>
+          <MenuItem onClick={() => alert("Friends")}>Friends</MenuItem>
+          <MenuItem onClick={() => alert("Chats")}>Chats</MenuItem>
+
+          <Button
+            variant="contained"
+            color="warning"
+            onClick={logoutUser}
+            disableElevation
+            sx={{ mx: 2, mt: 1 }}
+          >
+            Log-Out
+          </Button>
+        </Menu>
+      )}
       <Register open={openRegister} handleClose={handleRegisterClose} />
       <Login open={openLogin} handleClose={handleLoginClose} />
     </div>
